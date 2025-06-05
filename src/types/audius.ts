@@ -17,18 +17,37 @@ export interface AudiusUser {
 }
 
 export interface AudiusTrack {
-	artwork: AudiusArtwork;
-	description: string;
-	genre: string;
 	id: string;
-	mood: string;
-	release_date: string;
 	title: string;
-	user: AudiusUser;
+	user: {
+		id: string;
+		name: string;
+		handle: string;
+		avatar?: {
+			'150x150': string;
+			'480x480': string;
+			'1000x1000': string;
+		};
+	};
 	duration: number;
+	artwork: {
+		'150x150': string;
+		'480x480': string;
+		'1000x1000': string;
+	};
+	genre?: string;
+	mood?: string;
+	tags?: string[];
+	release_date?: string;
 	play_count: number;
-	favorite_count: number;
-	tags: string;
+	permalink: string;
+	description?: string;
+	license?: string;
+	isrc?: string;
+	track_segments?: Array<{
+		duration: number;
+		multihash: string;
+	}>;
 }
 
 // Convert Audius track to our app's Track interface
@@ -39,6 +58,7 @@ export interface Track {
 	artist_name: string;
 	image: string;
 	audio: string;
+	genre?: string;
 }
 
 export interface AudiusResponse {

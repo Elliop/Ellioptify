@@ -16,31 +16,49 @@ const convertAudiusTrack = (audiusTrack: AudiusTrack): Track => {
 		duration: audiusTrack.duration,
 		artist_name: audiusTrack.user.name,
 		image: audiusTrack.artwork['480x480'],
-		audio: `${AUDIUS_API}/tracks/${audiusTrack.id}/stream?${new URLSearchParams(getBaseParams())}`
+		audio: `${AUDIUS_API}/tracks/${audiusTrack.id}/stream?${new URLSearchParams(getBaseParams())}`,
+		genre: audiusTrack.genre || ''
 	};
 };
 
+interface GetTrendingTracksOptions {
+	genre?: string;
+	limit?: number;
+}
+
 export const audiusApi = {
-	async getTrendingTracks(limit: number = 50): Promise<Track[]> {
+	async getTrendingTracks(options: GetTrendingTracksOptions = {}): Promise<Track[]> {
+		const { genre, limit = 50 } = options;
 		const params = new URLSearchParams({
 			...getBaseParams(),
 			limit: limit.toString()
 		});
 
+		if (genre) {
+			params.append('genre', genre);
+		}
+
 		const response = await axios.get<AudiusSearchResponse>(
-			`${AUDIUS_API}/tracks/trending?${params}&genre=`
+			`${AUDIUS_API}/tracks/trending?${params}`
 		);
 		return response.data.data.map(convertAudiusTrack);
 	},
 
-	async searchTracks(query: string): Promise<Track[]> {
+	async searchTracks(query: string, genre?: string): Promise<Track[]> {
 		const params = new URLSearchParams({
 			...getBaseParams(),
 			query
 		});
 
 		const response = await axios.get<AudiusSearchResponse>(`${AUDIUS_API}/tracks/search?${params}`);
-		return response.data.data.map(convertAudiusTrack);
+		const tracks = response.data.data.map(convertAudiusTrack);
+
+		// Filter by genre if specified
+		if (genre) {
+			return tracks.filter((track) => track.genre?.toLowerCase() === genre.toLowerCase());
+		}
+
+		return tracks;
 	},
 
 	async getTrackById(trackId: string): Promise<Track> {

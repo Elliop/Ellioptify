@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Home, Search } from 'lucide-svelte';
+	import { Home, Music, Search } from 'lucide-svelte';
 	import { page } from '$app/stores';
 </script>
 
@@ -28,8 +28,8 @@
 					? 'bg-white/10 text-white'
 					: ''}"
 			>
-				<Search class="h-6 w-6" />
-				<span class="font-medium">Search</span>
+				<Music class="h-6 w-6" />
+				<span class="font-medium">Browse</span>
 			</a>
 		</nav>
 	</div>
