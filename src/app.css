@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+:root {
+	color-scheme: dark;
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 9999px;
+	transition: background-color 150ms;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
