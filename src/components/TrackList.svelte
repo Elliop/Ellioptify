@@ -1,4 +1,3 @@
-<!-- TrackList.svelte -->
 <script lang="ts">
 	import type { Track } from 'types/audius';
 	import TrackCard from 'components/TrackCard.svelte';

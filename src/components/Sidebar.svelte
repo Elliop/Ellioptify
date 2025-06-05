@@ -1,4 +1,3 @@
-<!-- Sidebar.svelte -->
 <script lang="ts">
 	import { Home, Search } from 'lucide-svelte';
 	import { page } from '$app/stores';
@@ -6,7 +5,10 @@
 
 <div class="fixed top-0 bottom-0 left-0 z-30 flex w-64 flex-col bg-black">
 	<div class="p-6">
-		<h1 class="mb-8 text-2xl font-bold text-white">Audius Clone</h1>
+		<div class="mb-8 flex items-center gap-2">
+			<img src="/logo.png" alt="Ellioptify" class="h-10 w-10" />
+			<h1 class="text-2xl font-bold text-white">Ellioptify</h1>
+		</div>
 
 		<nav class="space-y-2">
 			<a

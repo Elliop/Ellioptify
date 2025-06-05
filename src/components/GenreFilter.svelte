@@ -1,4 +1,3 @@
-<!-- GenreFilter.svelte -->
 <script lang="ts">
 	export let selectedGenre: string | null = null;
 	export let onGenreSelect: (genre: string | null) => void;

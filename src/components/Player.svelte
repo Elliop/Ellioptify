@@ -1,4 +1,3 @@
-<!-- Player.svelte -->
 <script lang="ts">
 	import { Play, Pause, Volume2, VolumeX } from 'lucide-svelte';
 	import { onMount, onDestroy } from 'svelte';

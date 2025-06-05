@@ -1,4 +1,3 @@
-<!-- SearchBar.svelte -->
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { Search } from 'lucide-svelte';

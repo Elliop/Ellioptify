@@ -3,9 +3,14 @@
 	import { onMount } from 'svelte';
 	import { audiusApi } from 'api';
 	import TrackList from 'components/TrackList.svelte';
+	import TrackCardSkeleton from 'components/TrackCardSkeleton.svelte';
 
 	let tracks: Track[] = [];
 	let isLoading = true;
+
+	// Create an array of 20 undefined elements for skeleton loading
+	const skeletonCount = 20;
+	const skeletonArray = [...Array(skeletonCount)];
 
 	onMount(async () => {
 		try {
@@ -18,11 +23,22 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Ellioptify - Home</title>
+	<meta
+		name="description"
+		content="Découvrez les meilleurs titres de musique sur Ellioptify. Écoutez des titres de qualité et explorez une collection de musique variée."
+	/>
+</svelte:head>
 <div class="space-y-6">
 	<h1 class="text-2xl font-bold text-white">Trending Tracks</h1>
 
 	{#if isLoading}
-		<div class="text-white/60">Loading...</div>
+		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+			{#each skeletonArray as _, i (i)}
+				<TrackCardSkeleton />
+			{/each}
+		</div>
 	{:else}
 		<TrackList {tracks} />
 	{/if}
