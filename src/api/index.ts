@@ -28,7 +28,7 @@ export const audiusApi = {
 		});
 
 		const response = await axios.get<AudiusSearchResponse>(
-			`${AUDIUS_API}/tracks/trending?${params}`
+			`${AUDIUS_API}/tracks/trending?${params}&genre=`
 		);
 		return response.data.data.map(convertAudiusTrack);
 	},
