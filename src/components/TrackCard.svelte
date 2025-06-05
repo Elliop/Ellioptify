@@ -1,8 +1,8 @@
 <!-- TrackCard.svelte -->
 <script lang="ts">
+	import type { Track } from 'types/audius';
+	import { player } from 'stores/player';
 	import { Play } from 'lucide-svelte';
-	import type { Track } from '../types/jamendo';
-	import { player } from '../stores/player';
 
 	export let track: Track;
 

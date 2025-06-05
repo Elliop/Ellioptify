@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
-	import Sidebar from '../components/Sidebar.svelte';
-	import Player from '../components/Player.svelte';
+	import Sidebar from 'components/Sidebar.svelte';
+	import Player from 'components/Player.svelte';
 </script>
 
 <div class="flex min-h-screen flex-col bg-gradient-to-b from-[#1E1E1E] to-black text-white">

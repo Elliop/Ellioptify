@@ -1,7 +1,7 @@
 <!-- Sidebar.svelte -->
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Home, Search } from 'lucide-svelte';
+	import { page } from '$app/stores';
 </script>
 
 <div class="fixed top-0 bottom-0 left-0 z-30 flex w-64 flex-col bg-black">

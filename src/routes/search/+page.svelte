@@ -1,12 +1,11 @@
 <!-- search/+page.svelte -->
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import type { Track } from 'types/audius';
 	import { goto } from '$app/navigation';
-	import SearchBar from '../../components/SearchBar.svelte';
-	import TrackList from '../../components/TrackList.svelte';
-	import { jamendoApi } from '../../api/jamendo';
-	import type { Track } from '../../types/jamendo';
+	import { page } from '$app/stores';
+	import { audiusApi } from 'api';
+	import SearchBar from 'components/SearchBar.svelte';
+	import TrackList from 'components/TrackList.svelte';
 
 	let tracks: Track[] = [];
 	let isLoading = false;
@@ -25,7 +24,7 @@
 		error = null;
 
 		try {
-			tracks = await jamendoApi.searchTracks(searchQuery);
+			tracks = await audiusApi.searchTracks(searchQuery);
 		} catch (e) {
 			error = 'Failed to search tracks. Please try again later.';
 			console.error(e);

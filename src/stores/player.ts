@@ -1,5 +1,5 @@
+import type { Track } from 'types/audius';
 import { writable } from 'svelte/store';
-import type { Track } from '../types/jamendo';
 
 export interface PlayerState {
 	currentTrack: Track | null;

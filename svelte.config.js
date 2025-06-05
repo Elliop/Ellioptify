@@ -5,11 +5,11 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		alias: {
-			api: './src/services',
+			api: './src/api',
 			components: './src/components',
 			lib: './src/lib',
 			stores: './src/stores',
-			types: './types',
+			types: './src/types',
 			utils: './src/utils',
 			static: './static'
 		},

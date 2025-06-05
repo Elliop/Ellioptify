@@ -1,15 +1,15 @@
 <script lang="ts">
+	import type { Track } from 'types/audius';
 	import { onMount } from 'svelte';
-	import TrackList from '../components/TrackList.svelte';
-	import { jamendoApi } from '../api/jamendo';
-	import type { Track } from '../types/jamendo';
+	import { audiusApi } from 'api';
+	import TrackList from 'components/TrackList.svelte';
 
 	let tracks: Track[] = [];
 	let isLoading = true;
 
 	onMount(async () => {
 		try {
-			tracks = await jamendoApi.getTrendingTracks();
+			tracks = await audiusApi.getTrendingTracks();
 		} catch (error) {
 			console.error('Error fetching tracks:', error);
 		} finally {

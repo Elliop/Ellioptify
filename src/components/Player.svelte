@@ -1,8 +1,8 @@
 <!-- Player.svelte -->
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
 	import { Play, Pause, Volume2, VolumeX } from 'lucide-svelte';
-	import { player } from '../stores/player';
+	import { onMount, onDestroy } from 'svelte';
+	import { player } from 'stores/player';
 
 	let audio: HTMLAudioElement;
 	let progressBar: HTMLInputElement;

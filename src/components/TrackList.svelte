@@ -1,7 +1,7 @@
 <!-- TrackList.svelte -->
 <script lang="ts">
-	import type { Track } from '../types/jamendo';
-	import TrackCard from './TrackCard.svelte';
+	import type { Track } from 'types/audius';
+	import TrackCard from 'components/TrackCard.svelte';
 
 	export let tracks: Track[];
 </script>
