@@ -15,35 +15,37 @@
 
 	// Genre color mapping
 	const genreColors: Record<string, string> = {
-		electronic: 'bg-purple-600',
-		rock: 'bg-red-600',
-		metal: 'bg-gray-800',
-		alternative: 'bg-indigo-600',
-		'hip-hop-rap': 'bg-blue-600',
-		experimental: 'bg-yellow-600',
-		punk: 'bg-red-800',
-		folk: 'bg-green-700',
-		pop: 'bg-pink-500',
-		ambient: 'bg-teal-600',
-		soundtrack: 'bg-purple-700',
-		world: 'bg-blue-700',
-		jazz: 'bg-yellow-700',
-		acoustic: 'bg-green-600',
-		funk: 'bg-orange-600',
-		devotional: 'bg-amber-700',
-		classical: 'bg-slate-700',
-		reggae: 'bg-green-800',
-		podcasts: 'bg-emerald-700',
-		country: 'bg-amber-600',
-		'spoken-word': 'bg-violet-700',
-		comedy: 'bg-pink-700',
-		blues: 'bg-blue-800',
-		kids: 'bg-cyan-600',
-		audiobooks: 'bg-emerald-800',
-		latin: 'bg-red-700',
-		'lo-fi': 'bg-purple-800',
-		hyperpop: 'bg-fuchsia-600',
-		dancehall: 'bg-orange-700'
+		'All-Genres': 'bg-gradient-to-b from-pink-500 to-pink-700',
+		Electronic: 'bg-gradient-to-b from-purple-500 to-purple-700',
+		Rock: 'bg-gradient-to-b from-red-500 to-red-700',
+		Metal: 'bg-gradient-to-b from-gray-700 to-gray-900',
+		Alternative: 'bg-gradient-to-b from-indigo-500 to-indigo-700',
+		'Hip-Hop-Rap': 'bg-gradient-to-b from-blue-500 to-blue-700',
+		Experimental: 'bg-gradient-to-b from-yellow-500 to-yellow-700',
+		Punk: 'bg-gradient-to-b from-red-700 to-red-900',
+		Folk: 'bg-gradient-to-b from-green-600 to-green-800',
+		Pop: 'bg-gradient-to-b from-pink-400 to-pink-600',
+		Ambient: 'bg-gradient-to-b from-teal-500 to-teal-700',
+		Soundtrack: 'bg-gradient-to-b from-purple-600 to-purple-800',
+		World: 'bg-gradient-to-b from-blue-600 to-blue-800',
+		Jazz: 'bg-gradient-to-b from-yellow-600 to-yellow-800',
+		Acoustic: 'bg-gradient-to-b from-green-500 to-green-700',
+		Funk: 'bg-gradient-to-b from-orange-500 to-orange-700',
+		Devotional: 'bg-gradient-to-b from-amber-600 to-amber-800',
+		Classical: 'bg-gradient-to-b from-slate-500 to-slate-700',
+		Reggae: 'bg-gradient-to-b from-green-700 to-green-900',
+		Podcasts: 'bg-gradient-to-b from-emerald-600 to-emerald-800',
+		Country: 'bg-gradient-to-b from-amber-500 to-amber-700',
+		'R&B-Soul': 'bg-gradient-to-b from-slate-600 to-slate-800',
+		'Spoken-Word': 'bg-gradient-to-b from-violet-600 to-violet-800',
+		Comedy: 'bg-gradient-to-b from-pink-600 to-pink-800',
+		Blues: 'bg-gradient-to-b from-blue-700 to-blue-900',
+		Kids: 'bg-gradient-to-b from-cyan-500 to-cyan-700',
+		Audiobooks: 'bg-gradient-to-b from-emerald-700 to-emerald-900',
+		Latin: 'bg-gradient-to-b from-red-600 to-red-800',
+		'Lo-Fi': 'bg-gradient-to-b from-purple-700 to-purple-900',
+		Hyperpop: 'bg-gradient-to-b from-fuchsia-500 to-fuchsia-700',
+		Dancehall: 'bg-gradient-to-b from-orange-600 to-orange-800'
 	};
 
 	$: genre = $page.params.slug;
@@ -66,6 +68,10 @@
 		try {
 			if (genreName === 'All Genres') {
 				tracks = await audiusApi.getTrendingTracks();
+			} else if (genreName === 'Hip Hop Rap') {
+				tracks = await audiusApi.getTrendingTracks({ genre: 'Hip-Hop/Rap' });
+			} else if (genreName === 'R&B Soul') {
+				tracks = await audiusApi.getTrendingTracks({ genre: 'R&B/Soul' });
 			} else {
 				tracks = await audiusApi.getTrendingTracks({ genre: genreName });
 			}
