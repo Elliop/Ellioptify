@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Sidebar from 'components/Sidebar.svelte';
 	import Player from 'components/Player.svelte';
+	import { SvelteKitTopLoader } from 'sveltekit-top-loader';
 </script>
 
 <div class="flex min-h-screen flex-col bg-gradient-to-b from-[#1E1E1E] to-black text-white">
@@ -13,7 +14,8 @@
 		</main>
 	</div>
 
-	<div class="sticky bottom-0 w-full">
+	<div class="sticky bottom-0 z-50 w-full">
 		<Player />
 	</div>
 </div>
+<SvelteKitTopLoader color="#00c951" />
