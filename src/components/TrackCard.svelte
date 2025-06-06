@@ -6,10 +6,11 @@
 
 	export let track: Track | undefined = undefined;
 	export let loading = false;
+	export let index: number = -1;
 
 	function handlePlay() {
 		if (track) {
-			player.playTrack(track);
+			player.playTrack(track, index);
 		}
 	}
 

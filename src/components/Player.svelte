@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Play, Pause, Volume2, VolumeX } from 'lucide-svelte';
+	import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward } from 'lucide-svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { player } from 'stores/player';
 
@@ -174,10 +174,14 @@
 		const remainingSeconds = Math.floor(seconds % 60);
 		return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 	}
+
+	function handleTrackEnd() {
+		player.playNext();
+	}
 </script>
 
 <div class="fixed right-0 bottom-0 left-0 border-t border-white/10 bg-[#181818] px-4 py-3">
-	<audio bind:this={audio} on:timeupdate={handleTimeUpdate} on:ended={() => player.reset()}></audio>
+	<audio bind:this={audio} on:timeupdate={handleTimeUpdate} on:ended={handleTrackEnd}></audio>
 
 	{#if $player.currentTrack}
 		<div class="flex items-center gap-4">
@@ -200,16 +204,32 @@
 
 			<!-- Player Controls -->
 			<div class="flex flex-1 flex-col items-center gap-2">
-				<button
-					class="p-2 text-white transition-colors hover:text-white/80"
-					on:click={() => player.togglePlay()}
-				>
-					{#if $player.isPlaying}
-						<Pause class="h-8 w-8" />
-					{:else}
-						<Play class="h-8 w-8" />
-					{/if}
-				</button>
+				<div class="flex items-center gap-4">
+					<button
+						class="p-2 text-white/60 transition-colors hover:text-white"
+						on:click={() => player.playPrevious()}
+						disabled={$player.playlist.length === 0}
+					>
+						<SkipBack class="h-5 w-5" />
+					</button>
+					<button
+						class="p-2 text-white transition-colors hover:text-white/80"
+						on:click={() => player.togglePlay()}
+					>
+						{#if $player.isPlaying}
+							<Pause class="h-8 w-8" />
+						{:else}
+							<Play class="h-8 w-8" />
+						{/if}
+					</button>
+					<button
+						class="p-2 text-white/60 transition-colors hover:text-white"
+						on:click={() => player.playNext()}
+						disabled={$player.playlist.length === 0}
+					>
+						<SkipForward class="h-5 w-5" />
+					</button>
+				</div>
 
 				<div class="flex w-full items-center gap-2">
 					<span class="w-10 text-right text-xs text-white/60">

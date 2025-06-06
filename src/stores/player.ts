@@ -7,6 +7,8 @@ export interface PlayerState {
 	progress: number;
 	duration: number;
 	volume: number;
+	playlist: Track[];
+	currentTrackIndex: number;
 }
 
 const initialState: PlayerState = {
@@ -14,7 +16,9 @@ const initialState: PlayerState = {
 	isPlaying: false,
 	progress: 0,
 	duration: 0,
-	volume: 1
+	volume: 1,
+	playlist: [],
+	currentTrackIndex: -1
 };
 
 function createPlayerStore() {
@@ -22,13 +26,21 @@ function createPlayerStore() {
 
 	return {
 		subscribe,
-		playTrack: (track: Track) => {
+		setPlaylist: (tracks: Track[]) => {
+			update((state) => ({
+				...state,
+				playlist: tracks,
+				currentTrackIndex: -1 // Reset index when new playlist is set
+			}));
+		},
+		playTrack: (track: Track, trackIndex: number = -1) => {
 			update((state) => ({
 				...state,
 				currentTrack: track,
 				isPlaying: true,
 				progress: 0,
-				duration: track.duration
+				duration: track.duration,
+				currentTrackIndex: trackIndex !== -1 ? trackIndex : state.currentTrackIndex
 			}));
 		},
 		togglePlay: () => {
@@ -48,6 +60,45 @@ function createPlayerStore() {
 				...state,
 				volume: Math.max(0, Math.min(1, volume))
 			}));
+		},
+		playNext: () => {
+			update((state) => {
+				if (state.playlist.length === 0 || state.currentTrackIndex === -1) {
+					return state;
+				}
+
+				const nextIndex = (state.currentTrackIndex + 1) % state.playlist.length;
+				const nextTrack = state.playlist[nextIndex];
+
+				return {
+					...state,
+					currentTrack: nextTrack,
+					currentTrackIndex: nextIndex,
+					isPlaying: true,
+					progress: 0,
+					duration: nextTrack.duration
+				};
+			});
+		},
+		playPrevious: () => {
+			update((state) => {
+				if (state.playlist.length === 0 || state.currentTrackIndex === -1) {
+					return state;
+				}
+
+				const prevIndex =
+					state.currentTrackIndex > 0 ? state.currentTrackIndex - 1 : state.playlist.length - 1;
+				const prevTrack = state.playlist[prevIndex];
+
+				return {
+					...state,
+					currentTrack: prevTrack,
+					currentTrackIndex: prevIndex,
+					isPlaying: true,
+					progress: 0,
+					duration: prevTrack.duration
+				};
+			});
 		},
 		reset: () => set(initialState)
 	};
