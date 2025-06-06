@@ -20,7 +20,7 @@ A modern music streaming application built with SvelteKit, TypeScript, and Tailw
   - Filter tracks by genre
   - View track details (artist, duration, artwork)
 
-- 💅 **Modern UI**
+- ✨ **Modern UI**
   - Responsive design for all screen sizes
   - Beautiful animations and transitions
   - Dark theme optimized for music browsing
@@ -47,18 +47,12 @@ cd ellioptify
 
 ```bash
 npm install
-# or
-pnpm install
-# or
-yarn install
 ```
 
 3. Start the development server:
 
 ```bash
 npm run dev
-# or
-npm run dev -- --open
 ```
 
 4. Build for production:
