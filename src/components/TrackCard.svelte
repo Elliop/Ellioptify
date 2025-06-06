@@ -27,14 +27,20 @@
 		class="group relative flex aspect-square w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-white/5 p-4 transition-colors hover:bg-white/10"
 		on:click={handlePlay}
 	>
-		<img src={track.image} alt={track.name} class="aspect-square w-full rounded shadow-lg" />
+		<!-- Track image -->
+		<img
+			src={track.image}
+			alt={track.name}
+			class="aspect-square w-full rounded object-cover shadow-lg"
+		/>
 
-		<div class="absolute right-0 bottom-0 left-0 flex items-end bg-gradient-to-t from-black/80 p-4">
-			<div class="flex-1">
-				<h3 class="max-w-[10rem] truncate px-2 text-sm font-medium text-white">
+		<!-- Overlay info and play button -->
+		<div class="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-black/80 p-4">
+			<div class="flex-1 overflow-hidden">
+				<h3 class="max-w-full truncate px-2 text-sm font-medium text-white">
 					{track.name}
 				</h3>
-				<p class="truncate text-xs text-white/60">
+				<p class="max-w-full truncate text-xs text-white/60">
 					{track.artist_name}
 				</p>
 			</div>
