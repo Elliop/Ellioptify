@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward } from 'lucide-svelte';
+	import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Repeat } from 'lucide-svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { player } from 'stores/player';
 
@@ -206,14 +206,14 @@
 			<div class="flex flex-1 flex-col items-center gap-2">
 				<div class="flex items-center gap-4">
 					<button
-						class="p-2 text-white/60 transition-colors hover:text-white"
+						class="cursor-pointer p-2 text-white/60 transition-colors hover:text-white"
 						on:click={() => player.playPrevious()}
 						disabled={$player.playlist.length === 0}
 					>
 						<SkipBack class="h-5 w-5" />
 					</button>
 					<button
-						class="p-2 text-white transition-colors hover:text-white/80"
+						class="cursor-pointer p-2 text-white transition-colors hover:text-white/80"
 						on:click={() => player.togglePlay()}
 					>
 						{#if $player.isPlaying}
@@ -223,11 +223,20 @@
 						{/if}
 					</button>
 					<button
-						class="p-2 text-white/60 transition-colors hover:text-white"
+						class="cursor-pointer p-2 text-white/60 transition-colors hover:text-white"
 						on:click={() => player.playNext()}
 						disabled={$player.playlist.length === 0}
 					>
 						<SkipForward class="h-5 w-5" />
+					</button>
+					<button
+						class="cursor-pointer p-2 {$player.repeat
+							? 'text-green-500'
+							: 'text-white/60'} transition-colors hover:text-white"
+						on:click={() => player.toggleRepeat()}
+						title={$player.repeat ? 'Repeat is on' : 'Repeat is off'}
+					>
+						<Repeat class="h-5 w-5" />
 					</button>
 				</div>
 
@@ -254,7 +263,10 @@
 
 			<!-- Volume Control -->
 			<div class="flex w-[30%] items-center justify-end gap-2">
-				<button class="p-1 text-white/60 transition-colors hover:text-white" on:click={toggleMute}>
+				<button
+					class="cursor-pointer p-1 text-white/60 transition-colors hover:text-white"
+					on:click={toggleMute}
+				>
 					{#if $player.volume > 0}
 						<Volume2 class="h-5 w-5" />
 					{:else}

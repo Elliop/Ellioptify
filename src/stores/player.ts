@@ -9,6 +9,7 @@ export interface PlayerState {
 	volume: number;
 	playlist: Track[];
 	currentTrackIndex: number;
+	repeat: boolean;
 }
 
 const initialState: PlayerState = {
@@ -18,7 +19,8 @@ const initialState: PlayerState = {
 	duration: 0,
 	volume: 1,
 	playlist: [],
-	currentTrackIndex: -1
+	currentTrackIndex: -1,
+	repeat: false
 };
 
 function createPlayerStore() {
@@ -49,6 +51,12 @@ function createPlayerStore() {
 				isPlaying: !state.isPlaying
 			}));
 		},
+		toggleRepeat: () => {
+			update((state) => ({
+				...state,
+				repeat: !state.repeat
+			}));
+		},
 		setProgress: (progress: number) => {
 			update((state) => ({
 				...state,
@@ -63,6 +71,15 @@ function createPlayerStore() {
 		},
 		playNext: () => {
 			update((state) => {
+				if (state.repeat && state.currentTrack) {
+					// If repeat is on, replay the current track
+					return {
+						...state,
+						progress: 0,
+						isPlaying: true
+					};
+				}
+
 				if (state.playlist.length === 0 || state.currentTrackIndex === -1) {
 					return state;
 				}
