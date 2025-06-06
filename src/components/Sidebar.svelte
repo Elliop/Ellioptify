@@ -1,15 +1,37 @@
 <script lang="ts">
-	import { Home, Music, Search } from 'lucide-svelte';
+	import { Home, Music } from 'lucide-svelte';
 	import { page } from '$app/stores';
+
+	let sidebarOpen = false;
 </script>
 
-<div class="fixed top-0 bottom-0 left-0 z-30 flex w-64 flex-col bg-black">
-	<div class="p-6">
-		<div class="mb-8 flex items-center gap-2">
+<!-- Mobile Hamburger Button -->
+<button
+	class="fixed top-5 left-4 z-40 text-white md:hidden"
+	onclick={() => (sidebarOpen = !sidebarOpen)}
+>
+	<img src="/logo.png" alt="Ellioptify" class="h-10 w-10" />
+</button>
+
+<!-- Mobile Backdrop -->
+{#if sidebarOpen}
+	<div class="fixed inset-0 z-20 bg-black/50 md:hidden" onclick={() => (sidebarOpen = false)} />
+{/if}
+
+<!-- Sidebar -->
+<div
+	class="fixed top-0 bottom-0 left-0 z-30 flex w-64 transform flex-col bg-black transition-transform duration-300 md:static md:translate-x-0"
+	class:translate-x-0={sidebarOpen}
+	class:-translate-x-full={!sidebarOpen}
+>
+	<div class="px-4 py-5">
+		<!-- Logo -->
+		<div class="mb-10 flex items-center gap-2">
 			<img src="/logo.png" alt="Ellioptify" class="h-10 w-10" />
 			<h1 class="text-2xl font-bold text-white">Ellioptify</h1>
 		</div>
 
+		<!-- Navigation -->
 		<nav class="space-y-2">
 			<a
 				href="/"
@@ -34,6 +56,3 @@
 		</nav>
 	</div>
 </div>
-
-<!-- Add padding to main content to account for sidebar -->
-<div class="pl-64"></div>
