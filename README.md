@@ -1,38 +1,82 @@
-# sv
+# Ellioptify - Music Streaming App
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A modern music streaming application built with SvelteKit, TypeScript, and TailwindCSS. This app uses the Audius API to provide a Spotify-like experience with access to decentralized music content.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- 🎵 **Music Playback**
+
+  - Full audio player controls (play, pause, skip, previous)
+  - Track progress bar with seek functionality
+  - Volume control with mute toggle
+  - Repeat track functionality
+  - Media key support (F7, F8, F9 on Mac)
+  - Keyboard shortcuts (spacebar for play/pause)
+
+- 🎼 **Music Discovery**
+
+  - Browse trending tracks
+  - Search tracks by name or artist
+  - Filter tracks by genre
+  - View track details (artist, duration, artwork)
+
+- 💅 **Modern UI**
+  - Responsive design for all screen sizes
+  - Beautiful animations and transitions
+  - Dark theme optimized for music browsing
+  - Loading states and error handling
+
+## Tech Stack
+
+- **Frontend Framework**: SvelteKit
+- **Language**: TypeScript
+- **Styling**: TailwindCSS
+- **Music API**: Audius API
+- **Icons**: Lucide Icons
+
+## Getting Started
+
+1. Clone the repository:
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+git clone https://github.com/yourusername/ellioptify.git
+cd ellioptify
 ```
 
-## Developing
+2. Install dependencies:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
+# or
 npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+4. Build for production:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## Contributing
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Audius](https://audius.co/) for providing the music API
+- [SvelteKit](https://kit.svelte.dev/) for the amazing framework
+- [TailwindCSS](https://tailwindcss.com/) for the utility-first CSS framework
