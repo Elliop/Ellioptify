@@ -9,6 +9,43 @@
 	let isDraggingProgress = false;
 	let currentPlayPromise: Promise<void> | null = null;
 
+	// Setup media session handlers
+	function setupMediaSession() {
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.setActionHandler('play', () => player.togglePlay());
+			navigator.mediaSession.setActionHandler('pause', () => player.togglePlay());
+			navigator.mediaSession.setActionHandler('previoustrack', () => player.playPrevious());
+			navigator.mediaSession.setActionHandler('nexttrack', () => player.playNext());
+		}
+	}
+
+	// Update media session metadata when track changes
+	$: if ('mediaSession' in navigator && $player.currentTrack) {
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: $player.currentTrack.name,
+			artist: $player.currentTrack.artist_name,
+			artwork: [
+				{
+					src: $player.currentTrack.image,
+					sizes: '480x480',
+					type: 'image/jpeg'
+				}
+			]
+		});
+	}
+
+	// Handle keyboard events for space bar play/pause
+	function handleKeydown(event: KeyboardEvent) {
+		// Only handle space if we're not in an input field
+		if (
+			event.code === 'Space' &&
+			!(event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement)
+		) {
+			event.preventDefault();
+			player.togglePlay();
+		}
+	}
+
 	// Reactive effect to handle track changes and playback
 	$: {
 		if (audio && $player.currentTrack) {
@@ -127,6 +164,9 @@
 
 	onMount(() => {
 		audio.volume = $player.volume;
+		setupMediaSession();
+		// Add keyboard event listener
+		window.addEventListener('keydown', handleKeydown);
 	});
 
 	onDestroy(() => {
@@ -134,6 +174,8 @@
 			audio.pause();
 			audio.src = '';
 		}
+		// Remove keyboard event listener
+		window.removeEventListener('keydown', handleKeydown);
 	});
 
 	function handleTimeUpdate() {
@@ -179,6 +221,8 @@
 		player.playNext();
 	}
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <div class="fixed right-0 bottom-0 left-0 border-t border-white/10 bg-[#181818] px-4 py-3">
 	<audio bind:this={audio} on:timeupdate={handleTimeUpdate} on:ended={handleTrackEnd}></audio>
