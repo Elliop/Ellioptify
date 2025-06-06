@@ -2,6 +2,7 @@
 	import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Repeat } from 'lucide-svelte';
 	import { onMount, onDestroy } from 'svelte';
 	import { player } from 'stores/player';
+	import { browser } from '$app/environment';
 
 	let audio: HTMLAudioElement;
 	let progressBar: HTMLInputElement;
@@ -11,7 +12,7 @@
 
 	// Setup media session handlers
 	function setupMediaSession() {
-		if ('mediaSession' in navigator) {
+		if (browser && 'mediaSession' in navigator) {
 			navigator.mediaSession.setActionHandler('play', () => player.togglePlay());
 			navigator.mediaSession.setActionHandler('pause', () => player.togglePlay());
 			navigator.mediaSession.setActionHandler('previoustrack', () => player.playPrevious());
@@ -20,7 +21,7 @@
 	}
 
 	// Update media session metadata when track changes
-	$: if ('mediaSession' in navigator && $player.currentTrack) {
+	$: if (browser && 'mediaSession' in navigator && $player.currentTrack) {
 		navigator.mediaSession.metadata = new MediaMetadata({
 			title: $player.currentTrack.name,
 			artist: $player.currentTrack.artist_name,
@@ -166,7 +167,9 @@
 		audio.volume = $player.volume;
 		setupMediaSession();
 		// Add keyboard event listener
-		window.addEventListener('keydown', handleKeydown);
+		if (browser) {
+			window.addEventListener('keydown', handleKeydown);
+		}
 	});
 
 	onDestroy(() => {
@@ -175,7 +178,9 @@
 			audio.src = '';
 		}
 		// Remove keyboard event listener
-		window.removeEventListener('keydown', handleKeydown);
+		if (browser) {
+			window.removeEventListener('keydown', handleKeydown);
+		}
 	});
 
 	function handleTimeUpdate() {
@@ -222,7 +227,7 @@
 	}
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={browser ? handleKeydown : null} />
 
 <div class="fixed right-0 bottom-0 left-0 border-t border-white/10 bg-[#181818] px-4 py-3">
 	<audio bind:this={audio} on:timeupdate={handleTimeUpdate} on:ended={handleTrackEnd}></audio>
