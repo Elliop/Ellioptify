@@ -35,6 +35,7 @@
 		<nav class="space-y-2">
 			<a
 				href="/"
+				onclick={() => (sidebarOpen = false)}
 				class="flex items-center gap-4 rounded-md px-3 py-2 text-white/60 transition-colors hover:text-white {$page
 					.url.pathname === '/'
 					? 'bg-white/10 text-white'
@@ -45,6 +46,7 @@
 			</a>
 			<a
 				href="/search"
+				onclick={() => (sidebarOpen = false)}
 				class="flex items-center gap-4 rounded-md px-3 py-2 text-white/60 transition-colors hover:text-white {$page
 					.url.pathname === '/search'
 					? 'bg-white/10 text-white'

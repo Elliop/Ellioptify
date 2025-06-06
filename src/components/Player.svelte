@@ -306,7 +306,7 @@
 			</div>
 
 			<!-- Volume Control -->
-			<div class="flex w-[30%] items-center justify-end gap-2">
+			<div class="hidden w-[30%] items-center justify-end gap-2 md:flex">
 				<button
 					class="cursor-pointer p-1 text-white/60 transition-colors hover:text-white"
 					on:click={toggleMute}
